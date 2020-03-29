@@ -25,7 +25,7 @@
         </template>
         <template v-if="curProcess == 1">
           <Card style="margin-top: 50px">
-            <p slot="title"><Icon type="md-cube" />{{ db }}</p>
+            <p slot="title"><Icon type="md-cube" /> {{ db }}</p>
             <Table :columns="retentionPolicies.columns" :data="retentionPolicies.values"></Table>
           </Card>
           <Button style="margin-top: 50px" @click="getMeasurements" type="primary"
@@ -38,7 +38,7 @@
               <ListItem :key="index">{{ item[0] }}</ListItem>
             </template>
           </List>
-          <Button style="margin-top: 50px" @click="getMeasurements" type="primary"
+          <Button style="margin-top: 50px" @click="finishConnect" type="primary"
             >Finished<Icon type="ios-arrow-forward"></Icon
           ></Button>
         </template>
@@ -120,6 +120,10 @@ export default {
           HandleError(resp.message)
         }
       })
+    },
+    finishConnect() {
+      this.curProcess++
+      this.$router.push('/base')
     },
   },
 }

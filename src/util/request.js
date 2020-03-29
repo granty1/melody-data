@@ -11,7 +11,7 @@ const err = error => {
   Spin.hide()
   Notice.warning({
     duration: 1.5,
-    desc: error,
+    desc: '无法连接到目的服务:' + error,
   })
 }
 
