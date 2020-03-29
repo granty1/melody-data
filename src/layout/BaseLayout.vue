@@ -2,7 +2,7 @@
   <div class="layout">
     <Layout>
       <Header :style="{ position: 'fixed', width: '100%', background: '#fff' }">
-        <Menu mode="horizontal" theme="light" active-name="base" @on-select="handleSelect">
+        <Menu mode="horizontal" theme="light" :active-name="$router.name" @on-select="handleSelect">
           <div class="layout-logo">
             <img class="navbar-logo" src="../assets/img/melodylogo.png" alt />
           </div>

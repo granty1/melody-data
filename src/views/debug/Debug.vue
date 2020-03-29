@@ -23,18 +23,26 @@ export default {
   },
   data() {
     return {
-      nums: [820, 932, 901, 934, 1290, 1330, 1320, 1500, 1500],
+      nums: [],
+      ws: {},
     }
   },
   computed: {
     option() {
       return {
         title: {
-          text: 'xxx-line'
+          text: 'xxx-line',
         },
         xAxis: {
           type: 'category',
           data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        },
+        tooltip: {
+          show: true,
+          axisPointer: {
+            type: 'cross',
+          },
+          trigger: 'axis',
         },
         yAxis: {
           type: 'value',
@@ -49,7 +57,28 @@ export default {
       }
     },
   },
-  mounted() {},
+  methods: {
+    initWS() {
+      this.ws = new WebSocket('ws://localhost:8002/test')
+      this.ws.onopen = () => {
+        console.log('connect to websocket.')
+      }
+      this.ws.onmessage = evt => {
+        console.log(evt.data)
+        this.nums = JSON.parse(evt.data)
+      }
+      this.ws.onclose = () => {
+        console.log('close websocket.')
+      }
+    },
+  },
+  mounted() {
+    this.initWS()
+  },
+  beforeRouteLeave(to, from, next) {
+    this.ws.close()
+    next()
+  },
 }
 </script>
 
