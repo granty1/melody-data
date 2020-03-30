@@ -3,14 +3,13 @@
     <Row>
       <i-col span="22" :offset="1">
         <Card style="height: 300px">
-          <Chart id="test" :option="option"></Chart>
+          <Chart id="test" :option="NumGCOption"></Chart>
         </Card>
         <Card style="height: 300px; margin-top:20px">
           <Chart id="test-2"></Chart>
         </Card>
       </i-col>
     </Row>
-    {{ nums }}
   </div>
 </template>
 
@@ -23,19 +22,24 @@ export default {
   },
   data() {
     return {
-      nums: [],
+      NumGC: {
+        xAxis: [],
+        yAxis: [],
+        title: '',
+      },
       ws: {},
     }
   },
   computed: {
-    option() {
+    NumGCOption() {
       return {
         title: {
-          text: 'xxx-line',
+          text: this.NumGC.title,
         },
         xAxis: {
+          name: 'time',
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: this.NumGC.xAxis,
         },
         tooltip: {
           show: true,
@@ -46,10 +50,15 @@ export default {
         },
         yAxis: {
           type: 'value',
+          name: 'nums',
+        },
+        legend: {
+          show: true,
         },
         series: [
           {
-            data: this.nums,
+            data: this.NumGC.yAxis,
+            name: 'GCNums',
             type: 'line',
             smooth: true,
           },
@@ -59,16 +68,20 @@ export default {
   },
   methods: {
     initWS() {
-      this.ws = new WebSocket('ws://localhost:8002/test')
+      this.ws = new WebSocket('ws://localhost:8002/debug/num/gc')
       this.ws.onopen = () => {
-        console.log('connect to websocket.')
+        console.log('connect to websocket')
       }
       this.ws.onmessage = evt => {
-        console.log(evt.data)
-        this.nums = JSON.parse(evt.data)
+        let json = JSON.parse(evt.data)
+        this.NumGC = {
+          xAxis: json.xAxis,
+          yAxis: json.yAxis,
+          title: json.title,
+        }
       }
       this.ws.onclose = () => {
-        console.log('close websocket.')
+        console.log('close websocket')
       }
     },
   },
