@@ -15,6 +15,8 @@
 
 <script>
 import Chart from '@/components/echarts/Chart'
+import { NewWebSocket } from '@/util/websocket'
+import { HandleError } from '@/util/handle'
 export default {
   name: 'Debug',
   components: {
@@ -27,7 +29,7 @@ export default {
         yAxis: [],
         title: '',
       },
-      ws: {},
+      GCNumWs: {},
     }
   },
   computed: {
@@ -67,29 +69,28 @@ export default {
     },
   },
   methods: {
-    initWS() {
-      this.ws = new WebSocket('ws://localhost:8002/debug/num/gc')
-      this.ws.onopen = () => {
-        console.log('connect to websocket')
-      }
-      this.ws.onmessage = evt => {
+    initGCNumWS() {
+      this.GCNumWs = NewWebSocket('/debug/num/gc')
+      this.GCNumWs.onmessage = evt => {
         let json = JSON.parse(evt.data)
-        this.NumGC = {
-          xAxis: json.xAxis,
-          yAxis: json.yAxis,
-          title: json.title,
+        console.log('<- server')
+        if (json.error != null) {
+          HandleError(json.error)
+        } else {
+          this.NumGC = {
+            xAxis: json.xAxis,
+            yAxis: json.yAxis,
+            title: json.title,
+          }
         }
-      }
-      this.ws.onclose = () => {
-        console.log('close websocket')
       }
     },
   },
   mounted() {
-    this.initWS()
+    this.initGCNumWS()
   },
   beforeRouteLeave(to, from, next) {
-    this.ws.close()
+    this.GCNumWs.close()
     next()
   },
 }

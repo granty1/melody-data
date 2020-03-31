@@ -8,11 +8,18 @@ export default new Vuex.Store({
     connection: {
       database: '',
       address: '',
+      websocket: '',
+      connect: false,
     },
   },
   mutations: {
     initConnection(state, conn) {
       state.connection = conn
+      Vue.ls.set('connection', state.connection)
+    },
+    updateConnect(state, connect) {
+      state.connection.connect = connect
+      Vue.ls.set('connection', state.connection)
     },
   },
   getters: {
@@ -21,6 +28,12 @@ export default new Vuex.Store({
     },
     database: state => {
       return state.connection.database
+    },
+    websocket: state => {
+      return state.connection.websocket
+    },
+    connect: state => {
+      return state.connection.connect
     },
   },
   actions: {},

@@ -34,4 +34,14 @@ const router = new VueRouter({
   routes,
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.path != '/') {
+    let conn = Vue.ls.get('connection')
+    if (conn == null) {
+      next('/')
+    }
+  }
+  next()
+})
+
 export default router

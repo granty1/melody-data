@@ -16,3 +16,11 @@ export function query(data) {
     data,
   })
 }
+
+export function updateTime(data) {
+  return axios({
+    url: store.getters.address + '/time',
+    method: 'post',
+    data,
+  })
+}

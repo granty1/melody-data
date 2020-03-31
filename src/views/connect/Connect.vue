@@ -10,10 +10,15 @@
         <template v-if="curProcess == 0">
           <Form style="margin-top: 50px" :model="connect">
             <FormItem label="">
-              <i-input autofocus v-model="connect.address" placeholder=":8080">
+              <i-input autofocus v-model="connect.address" placeholder=":8001">
                 <span slot="prepend">http://</span>
               </i-input>
             </FormItem>
+            <Form-item>
+              <i-input autofocus v-model="connect.websocket" placeholder=":8002">
+                <span slot="prepend">ws://</span>
+              </i-input>
+            </Form-item>
             <FormItem label="">
               <i-input autofocus v-model="connect.username" placeholder="username"> </i-input>
             </FormItem>
@@ -61,6 +66,7 @@ export default {
       curProcess: 0,
       connect: {
         address: '127.0.0.1:8001',
+        websocket: '127.0.0.1:8002',
         username: '',
         password: '',
       },
@@ -78,6 +84,8 @@ export default {
           this.$store.commit('initConnection', {
             database: this.db,
             address: 'http://' + this.connect.address,
+            websocket: 'ws://' + this.connect.websocket,
+            connect: true,
           })
           this.getRetentionPolicies()
         } else {

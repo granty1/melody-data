@@ -3,7 +3,16 @@
     <router-view />
   </div>
 </template>
-
+<script>
+export default {
+  mounted() {
+    let conn = this.$ls.get('connection')
+    if (conn != null) {
+      this.$store.commit('initConnection', conn)
+    }
+  },
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
