@@ -131,7 +131,7 @@ export default {
     },
     finishConnect() {
       this.curProcess++
-      this.$router.push('/base')
+      this.$router.push('/runtime')
     },
   },
 }

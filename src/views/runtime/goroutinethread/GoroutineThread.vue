@@ -1,15 +1,6 @@
 <template>
   <div>
-    <Row>
-      <i-col span="22" :offset="1">
-        <Card style="height: 300px">
-          <Chart id="test" :option="NumGCOption"></Chart>
-        </Card>
-        <Card style="height: 300px; margin-top:20px">
-          <Chart id="test-2"></Chart>
-        </Card>
-      </i-col>
-    </Row>
+    <Chart id="goroutine_thread" :option="option"></Chart>
   </div>
 </template>
 
@@ -18,30 +9,30 @@ import Chart from '@/components/echarts/Chart'
 import { NewWebSocket } from '@/util/websocket'
 import { HandleError } from '@/util/handle'
 export default {
-  name: 'Debug',
+  name: 'GoroutineThread',
+  data() {
+    return {
+      ws: {},
+      op: {
+        title: '',
+        times: [],
+        series: [],
+      },
+    }
+  },
   components: {
     Chart,
   },
-  data() {
-    return {
-      NumGC: {
-        xAxis: [],
-        yAxis: [],
-        title: '',
-      },
-      GCNumWs: {},
-    }
-  },
   computed: {
-    NumGCOption() {
+    option() {
       return {
         title: {
-          text: this.NumGC.title,
+          text: this.op.title,
         },
         xAxis: {
           name: 'time',
           type: 'category',
-          data: this.NumGC.xAxis,
+          data: this.op.times,
         },
         tooltip: {
           show: true,
@@ -57,42 +48,34 @@ export default {
         legend: {
           show: true,
         },
-        series: [
-          {
-            data: this.NumGC.yAxis,
-            name: 'GCNums',
-            type: 'line',
-            smooth: true,
-          },
-        ],
+        series: this.op.series,
       }
     },
   },
   methods: {
-    initGCNumWS() {
-      this.GCNumWs = NewWebSocket('/debug/num/gc')
-      this.GCNumWs.onmessage = evt => {
+    initWS() {
+      this.ws = NewWebSocket('/runtime/num/goroutine_thread')
+      this.ws.onmessage = evt => {
         let json = JSON.parse(evt.data)
         console.log('<- server')
         if (json.error != null) {
           HandleError(json.error)
         } else {
-          this.NumGC = {
-            xAxis: json.xAxis,
-            yAxis: json.yAxis,
+          console.log(json)
+          this.op = {
             title: json.title,
+            times: json.times,
+            series: json.series,
           }
         }
       }
     },
   },
   mounted() {
-    this.initGCNumWS()
+    this.initWS()
   },
   beforeDestroy() {
-    this.GCNumWs.close()
+    this.ws.close()
   },
 }
 </script>
-
-<style lang="less"></style>

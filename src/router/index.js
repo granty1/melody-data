@@ -11,18 +11,23 @@ const routes = [
     component: Connect,
   },
   {
-    path: '/base',
+    path: '/runtime',
     component: () => import('@/layout/BaseLayout'),
     children: [
       {
-        path: '/base',
-        name: 'base',
+        path: '/debug',
+        name: 'debug',
         component: () => import('@/views/debug/Debug'),
       },
       {
         path: '/request',
         name: 'request',
         component: () => import('@/views/request/Request'),
+      },
+      {
+        path: '/runtime',
+        name: 'runtime',
+        component: () => import('@/views/runtime/Runtime'),
       },
     ],
   },

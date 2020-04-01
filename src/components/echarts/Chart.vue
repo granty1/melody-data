@@ -42,6 +42,11 @@ export default {
               type: 'line',
               data: [5, 20, 36, 10, 10, 70],
             },
+            {
+              name: '计划量',
+              type: 'line',
+              data: [7, 2, 36, 11, 10, 60],
+            },
           ],
         }
       },
@@ -70,6 +75,7 @@ export default {
       handler(newVal, oldVal) {
         if (this.chart) {
           if (newVal) {
+            this.$store.commit('updateConnect', true)
             this.chart.setOption(newVal)
           } else {
             this.chart.setOption(oldVal)

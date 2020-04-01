@@ -12,9 +12,9 @@
             <img class="navbar-logo" src="../assets/img/melodylogo.png" alt />
           </div>
           <div class="layout-nav">
-            <MenuItem name="base">
-              <Icon type="ios-navigate"></Icon>
-              Debug
+            <MenuItem name="runtime">
+              <Icon type="ios-paper"></Icon>
+              Runtime
             </MenuItem>
             <MenuItem name="request">
               <Icon type="ios-keypad"></Icon>
@@ -24,13 +24,13 @@
               <Icon type="ios-analytics"></Icon>
               Router
             </MenuItem>
-            <MenuItem name="runtime">
-              <Icon type="ios-paper"></Icon>
-              Runtime
-            </MenuItem>
             <MenuItem name="gc">
               <Icon type="ios-paper"></Icon>
               GC
+            </MenuItem>
+            <MenuItem name="debug">
+              <Icon type="ios-navigate"></Icon>
+              Debug
             </MenuItem>
           </div>
         </Menu>
@@ -70,7 +70,6 @@
   </div>
 </template>
 <script>
-import { updateTime } from '@/api'
 export default {
   name: 'Base',
   data() {
@@ -87,15 +86,15 @@ export default {
       pastTimeIntervalMap: [
         {
           past: '5m',
-          grouop: '2500ms',
+          grouop: '6s',
         },
         {
           past: '15m',
-          grouop: '2500ms',
+          grouop: '10s',
         },
         {
           past: '1h',
-          grouop: '10s',
+          grouop: '12s',
         },
         {
           past: '6h',
@@ -109,7 +108,25 @@ export default {
           past: '24h',
           grouop: '4m',
         },
+        {
+          past: '7d',
+          grouop: '28m',
+        },
+        {
+          past: '15d',
+          grouop: '54m',
+        },
+        {
+          past: '30d',
+          grouop: '108m',
+        },
       ],
+    }
+  },
+  mounted() {
+    let cache = this.$store.getters.timecontrol
+    if (cache != null) {
+      this.timeControl = cache
     }
   },
   computed: {
@@ -133,7 +150,7 @@ export default {
           this.pastTimeIntervalMap.forEach(e => {
             if (e.past == data.time_interval) {
               data.group_time = e.grouop
-              updateTime(data)
+              this.$store.commit('updateTimeControl', data)
             }
           })
         }

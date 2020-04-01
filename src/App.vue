@@ -7,6 +7,7 @@
 export default {
   mounted() {
     let conn = this.$ls.get('connection')
+    console.log(conn)
     if (conn != null) {
       this.$store.commit('initConnection', conn)
     }
@@ -33,5 +34,13 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #2752a3;
+  background-color: #f9f2f4;
+  border-radius: 4px;
 }
 </style>
