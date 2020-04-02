@@ -2,13 +2,15 @@
   <div>
     <Card>
       <dynamic-chart id="runtime_num_goroutine" path="/runtime/num/goroutine"></dynamic-chart>
-      <div style="font-size: 12px"><code>goroutine num</code>:当前系统中存在的goroutine数</div>
+      <div style="font-size: 12px">
+        <code>goroutine num</code>:时间单位内系统中存在的平均goroutine数
+      </div>
     </Card>
     <Row style="margin-top: 10px">
       <i-col span="11">
         <Card>
           <dynamic-chart id="runtime_num_gc" path="/runtime/num/gc"></dynamic-chart>
-          <div style="font-size: 12px"><code>GC num</code>:当前系统中GC执行数</div>
+          <div style="font-size: 12px"><code>GC num</code>:时间单位内系统中GC总执行数</div>
         </Card>
       </i-col>
       <i-col span="11" :offset="2">
@@ -19,7 +21,7 @@
             :yLabelFormatter="freeFormatter"
             :tooltipFormatter="freeToolTipFormatter"
           ></dynamic-chart>
-          <div style="font-size: 12px"><code>free memory</code>:GC释放的内存</div>
+          <div style="font-size: 12px"><code>free memory</code>:时间单位内GC释放的总内存</div>
         </Card>
       </i-col>
     </Row>
@@ -31,8 +33,9 @@
         path="/runtime/num/memory"
       ></dynamic-chart>
       <div style="font-size: 12px">
-        <code>sys</code>:系统占用总内存 <code>heap</code>:堆内存 <code>stack</code>:栈内存
-        <code>mcache</code>内存缓存池占用内存 <code>mspan</code>:页管理占用内存
+        <code>sys</code>:系统占用总平均内存 <code>heap</code>:堆平均内存
+        <code>stack</code>:栈平均内存 <code>mcache</code>内存缓存池平均占用内存
+        <code>mspan</code>:页管理平均占用内存
       </div>
     </Card>
   </div>
