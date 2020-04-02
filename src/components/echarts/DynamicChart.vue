@@ -19,6 +19,22 @@ export default {
       type: String,
       required: true,
     },
+    yLabelFormatter: {
+      type: Function,
+      default: function(value) {
+        return value
+      },
+    },
+    tooltipFormatter: {
+      type: Function,
+      default: function(params) {
+        var res = params[0].name
+        for (var i = 0; i < params.length; i++) {
+          res += '<br>' + params[i].marker + params[i].seriesName + '：' + params[i].data
+        }
+        return res
+      },
+    },
   },
   data() {
     return {
@@ -50,10 +66,14 @@ export default {
             type: 'cross',
           },
           trigger: 'axis',
+          formatter: this.tooltipFormatter,
         },
         yAxis: {
           type: 'value',
           name: 'nums',
+          axisLabel: {
+            formatter: this.yLabelFormatter,
+          },
         },
         legend: {
           show: true,

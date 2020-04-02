@@ -19,8 +19,10 @@ export default new Vuex.Store({
       Vue.ls.set('connection', conn)
     },
     updateConnect(state, connect) {
-      state.connection.connect = connect
-      Vue.ls.set('connection', state.connection)
+      setTimeout(() => {
+        state.connection.connect = connect
+        Vue.ls.set('connection', state.connection)
+      }, 2000)
     },
     updateTimeControl(state, data) {
       state.connection.timeControl = data

@@ -54,9 +54,12 @@
 
               <Select v-model="timeControl.time_interval" style="width:150px; margin-left: 10px">
                 <span slot="prefix"> <Icon type="md-time" /> Past </span>
-                <Option v-for="item in pastTimeIntervalMap" :value="item.past" :key="item.past">{{
-                  item.past
-                }}</Option>
+                <Option v-for="item in pastList" :value="item" :key="item">{{ item }}</Option>
+              </Select>
+
+              <Select v-model="timeControl.group_time" style="width:150px; margin-left: 10px">
+                <span slot="prefix"><Icon type="ios-swap" /> group </span>
+                <Option v-for="item in intervalList" :value="item" :key="item">{{ item }}</Option>
               </Select>
             </i-col>
           </Row>
@@ -78,49 +81,13 @@ export default {
         min_time: 'now()',
         max_time: 'now()',
         time_interval: '15m',
-        group_time: '2500ms',
+        group_time: '10s',
         refresh_time: '10s',
       },
       isFullScreen: false,
       refreshList: ['5s', '10s', '15s', '30s', '60s'],
-      pastTimeIntervalMap: [
-        {
-          past: '5m',
-          grouop: '6s',
-        },
-        {
-          past: '15m',
-          grouop: '10s',
-        },
-        {
-          past: '1h',
-          grouop: '12s',
-        },
-        {
-          past: '6h',
-          grouop: '1m',
-        },
-        {
-          past: '12h',
-          grouop: '2m',
-        },
-        {
-          past: '24h',
-          grouop: '4m',
-        },
-        {
-          past: '7d',
-          grouop: '28m',
-        },
-        {
-          past: '15d',
-          grouop: '54m',
-        },
-        {
-          past: '30d',
-          grouop: '108m',
-        },
-      ],
+      pastList: ['5m', '15m', '1h', '6h', '12h', '24h', '7d', '15d', '30d'],
+      intervalList: ['500ms', '2s', '5s', '10s', '15s', '1m', '2m', '4m', '30m', '1h', '6h'],
     }
   },
   mounted() {
@@ -146,13 +113,7 @@ export default {
     timeControl: {
       handler(newVal) {
         if (newVal) {
-          let data = this.timeControl
-          this.pastTimeIntervalMap.forEach(e => {
-            if (e.past == data.time_interval) {
-              data.group_time = e.grouop
-              this.$store.commit('updateTimeControl', data)
-            }
-          })
+          this.$store.commit('updateTimeControl', newVal)
         }
       },
       deep: true,
