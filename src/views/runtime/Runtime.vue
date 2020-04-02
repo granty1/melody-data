@@ -1,21 +1,22 @@
 <template>
   <div>
     <Card>
-      <goroutine-thread></goroutine-thread>
-      <div style="font-size: 12px">
-        <code>NumGoroutine</code>:当前系统中存在的goroutine数
-        <code>NumThread</code>:当前系统中存在的线程数
-      </div>
+      <dynamic-chart
+        id="runtime_num_goroutine"
+        path="/runtime/num/goroutine_thread"
+      ></dynamic-chart>
+      <div style="font-size: 12px"><code>goroutine num</code>:当前系统中存在的goroutine数</div>
     </Card>
+    <Card style="margin-top: 10px"> </Card>
   </div>
 </template>
 
 <script>
-import GoroutineThread from './goroutinethread/GoroutineThread'
+import DynamicChart from '@/components/echarts/DynamicChart'
 export default {
   name: 'Runtime',
   components: {
-    GoroutineThread,
+    DynamicChart,
   },
 }
 </script>

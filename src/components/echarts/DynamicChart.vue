@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Chart id="goroutine_thread" :option="option"></Chart>
+    <Chart :id="id" :option="option"></Chart>
   </div>
 </template>
 
@@ -9,7 +9,17 @@ import Chart from '@/components/echarts/Chart'
 import { NewWebSocket } from '@/util/websocket'
 import { HandleError } from '@/util/handle'
 export default {
-  name: 'GoroutineThread',
+  name: 'DynamicChart',
+  props: {
+    id: {
+      type: String,
+      required: true,
+    },
+    path: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
       ws: {},
@@ -54,14 +64,13 @@ export default {
   },
   methods: {
     initWS() {
-      this.ws = NewWebSocket('/runtime/num/goroutine_thread')
+      this.ws = NewWebSocket(this.path)
       this.ws.onmessage = evt => {
         let json = JSON.parse(evt.data)
-        console.log('<- server')
+        console.log(this.path + '< - server')
         if (json.error != null) {
           HandleError(json.error)
         } else {
-          console.log(json)
           this.op = {
             title: json.title,
             times: json.times,
