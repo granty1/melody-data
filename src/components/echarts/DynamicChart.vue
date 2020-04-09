@@ -85,19 +85,25 @@ export default {
   methods: {
     initWS() {
       this.ws = NewWebSocket(this.path)
+      this.ws.onopen = () => {}
       this.ws.onmessage = evt => {
         let json = JSON.parse(evt.data)
-        console.log(this.path + '< - server')
-        if (json.error != null) {
-          HandleError(json.error)
-        } else {
-          this.op = {
-            title: json.title,
-            times: json.times,
-            series: json.series,
+        console.log(this.path + ' <- server')
+        if (json != null) {
+          if (json.error != null) {
+            HandleError(json.error)
+          } else {
+            this.op = {
+              title: json.title,
+              times: json.times,
+              series: json.series,
+            }
           }
         }
       }
+    },
+    changeAPI(v) {
+      this.ws.send(v)
     },
   },
   mounted() {

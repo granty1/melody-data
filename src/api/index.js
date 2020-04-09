@@ -24,3 +24,11 @@ export function updateTime(data) {
     data,
   })
 }
+
+export function getE2B(data) {
+  return axios({
+    url: store.getters.address + '/backends',
+    method: 'post',
+    data,
+  })
+}
