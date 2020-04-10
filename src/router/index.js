@@ -15,9 +15,9 @@ const routes = [
     component: () => import('@/layout/BaseLayout'),
     children: [
       {
-        path: '/debug',
-        name: 'debug',
-        component: () => import('@/views/debug/Debug'),
+        path: '/runtime',
+        name: 'runtime',
+        component: () => import('@/views/runtime/Runtime'),
       },
       {
         path: '/request',
@@ -25,9 +25,19 @@ const routes = [
         component: () => import('@/views/request/Request'),
       },
       {
-        path: '/runtime',
-        name: 'runtime',
-        component: () => import('@/views/runtime/Runtime'),
+        path: '/router',
+        name: 'router',
+        component: () => import('@/views/router/Router'),
+      },
+      {
+        path: '/gc',
+        name: 'gc',
+        component: () => import('@/views/gc/Gc'),
+      },
+      {
+        path: '/debug',
+        name: 'debug',
+        component: () => import('@/views/debug/Debug'),
       },
     ],
   },
