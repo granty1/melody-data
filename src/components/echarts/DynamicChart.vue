@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div style="margin: 5px 0 15px;">
+      <slot></slot>
+    </div>
     <Chart :id="id" :option="option"></Chart>
   </div>
 </template>

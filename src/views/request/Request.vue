@@ -16,19 +16,15 @@
       <dynamic-chart id="requests_backends" path="/requests/backends"></dynamic-chart>
       <div style="font-size: 12px"><code>Requetss Backends</code>:所有Backend的请求</div>
     </Card>
-    <div>
-      请选择要查看的接口
-    </div>
-    <div style="margin-top: 10px;">
-      <Cascader
-        :data="e2b"
-        v-model="curAPI"
-        :render-format="format"
-        @on-change="changeAPI"
-      ></Cascader>
-    </div>
     <Card>
-      <dynamic-chart id="requests_api" ref="api" path="/requests/api"></dynamic-chart>
+      <dynamic-chart id="requests_api" ref="api" path="/requests/api">
+        <Cascader
+          :data="e2b"
+          v-model="curAPI"
+          :render-format="format"
+          @on-change="changeAPI"
+        ></Cascader>
+      </dynamic-chart>
       <div style="font-size: 12px"><code>Requetss API</code>:某一个API的所有请求</div>
     </Card>
   </div>
