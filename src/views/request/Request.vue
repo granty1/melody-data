@@ -2,19 +2,19 @@
   <div>
     <Card>
       <dynamic-chart id="requests_complete" path="/requests/complete"></dynamic-chart>
-      <div style="font-size: 12px"><code>Requetss Complete</code>:所有成功的请求</div>
+      <div style="font-size: 12px"><code>Requets Complete</code>:所有成功的请求</div>
     </Card>
     <Card>
       <dynamic-chart id="requests_error" path="/requests/error"></dynamic-chart>
-      <div style="font-size: 12px"><code>Requetss Error</code>:所有失败的请求</div>
+      <div style="font-size: 12px"><code>Requets Error</code>:所有失败的请求</div>
     </Card>
     <Card>
       <dynamic-chart id="requests_endpoints" path="/requests/endpoints"></dynamic-chart>
-      <div style="font-size: 12px"><code>Requetss Endpoints</code>:所有Endpoint的请求</div>
+      <div style="font-size: 12px"><code>Requets Endpoints</code>:所有Endpoint的请求</div>
     </Card>
     <Card>
       <dynamic-chart id="requests_backends" path="/requests/backends"></dynamic-chart>
-      <div style="font-size: 12px"><code>Requetss Backends</code>:所有Backend的请求</div>
+      <div style="font-size: 12px"><code>Requets Backends</code>:所有Backend的请求</div>
     </Card>
     <Card>
       <dynamic-chart id="requests_api" ref="api" path="/requests/api">
@@ -25,7 +25,7 @@
           @on-change="changeAPI"
         ></Cascader>
       </dynamic-chart>
-      <div style="font-size: 12px"><code>Requetss API</code>:某一个API的所有请求</div>
+      <div style="font-size: 12px"><code>Requets API</code>:某一个API的所有请求</div>
     </Card>
   </div>
 </template>
@@ -58,15 +58,15 @@ export default {
       if (labels.length == 0) {
         return '请选择接口'
       }
-      return labels[0] + ' => ' + labels[1]
+      return labels[0] + ' => ' + labels[1] + ' => ' + labels[2]
     },
     changeAPI(value) {
       if (value[1] === 'ALL') {
         // 获取 endpoint
-        this.$refs.api.changeAPI(value[0])
+        this.$refs.api.changeAPI(value[0] + ' ' + value[2])
       } else {
         // 获取 backend
-        this.$refs.api.changeAPI(value[1])
+        this.$refs.api.changeAPI(value[1] + ' ' + value[2])
       }
     },
   },
