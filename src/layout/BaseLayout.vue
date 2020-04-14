@@ -24,10 +24,6 @@
               <Icon type="ios-analytics"></Icon>
               Router
             </MenuItem>
-            <MenuItem name="gc">
-              <Icon type="ios-paper"></Icon>
-              GC
-            </MenuItem>
             <MenuItem name="debug">
               <Icon type="ios-navigate"></Icon>
               Debug
