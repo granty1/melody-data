@@ -15,7 +15,7 @@
       </i-col>
     </Row>
 
-    <Card>
+    <Card style="margin-top: 10px">
       <dynamic-chart
         id="requests_pie"
         path="/requests/endpoints/pie"
@@ -54,7 +54,7 @@
       </i-col>
     </Row>
 
-    <Card>
+    <Card style="margin-top: 10px">
       <dynamic-chart id="requests_api" ref="api" path="/requests/api">
         <Cascader
           :data="e2b"

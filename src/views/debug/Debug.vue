@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Card style="height: 300px">
+    <Card style="margin-top: 10px;">
       <dynamic-chart id="debug_num_gc" path="/debug/num/gc"></dynamic-chart>
     </Card>
-    <Card style="height: 300px">
+    <Card style="margin-top: 10px;">
       <dynamic-chart
         id="debug_free_total"
         path="/debug/free-total"

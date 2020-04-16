@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card>
+    <Card style="margin-top: 10px;">
       <dynamic-chart id="runtime_num_goroutine" path="/runtime/num/goroutine"></dynamic-chart>
       <div style="font-size: 12px">
         <code>goroutine num</code>:时间单位内系统中存在的平均goroutine数
