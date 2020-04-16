@@ -14,6 +14,17 @@
         </Card>
       </i-col>
     </Row>
+
+    <Card>
+      <dynamic-chart
+        id="requests_pie"
+        path="/requests/endpoints/pie"
+        :tooltip="pieTooltip"
+        :needX="false"
+        :needY="false"
+      ></dynamic-chart>
+    </Card>
+
     <Row style="margin-top: 10px">
       <i-col span="11">
         <Card>
@@ -66,6 +77,10 @@ export default {
     return {
       requestsComplete: {
         complete: true,
+      },
+      pieTooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)',
       },
       e2b: [],
       curAPI: ['', ''],

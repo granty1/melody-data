@@ -38,6 +38,18 @@ export default {
         return res
       },
     },
+    tooltip: {
+      type: Object,
+      default: () => undefined,
+    },
+    needX: {
+      type: Boolean,
+      default: () => true,
+    },
+    needY: {
+      type: Boolean,
+      default: () => true,
+    },
   },
   data() {
     return {
@@ -58,26 +70,33 @@ export default {
         title: {
           text: this.op.title,
         },
-        xAxis: {
-          name: 'time',
-          type: 'category',
-          data: this.op.times,
-        },
-        tooltip: {
-          show: true,
-          axisPointer: {
-            type: 'cross',
-          },
-          trigger: 'axis',
-          formatter: this.tooltipFormatter,
-        },
-        yAxis: {
-          type: 'value',
-          name: 'nums',
-          axisLabel: {
-            formatter: this.yLabelFormatter,
-          },
-        },
+        xAxis: this.needX
+          ? {
+              name: 'time',
+              type: 'category',
+              data: this.op.times,
+            }
+          : undefined,
+        tooltip:
+          this.tooltip == {}
+            ? {
+                show: true,
+                axisPointer: {
+                  type: 'cross',
+                },
+                trigger: 'axis',
+                formatter: this.tooltipFormatter,
+              }
+            : this.tooltip,
+        yAxis: this.needY
+          ? {
+              type: 'value',
+              name: 'nums',
+              axisLabel: {
+                formatter: this.yLabelFormatter,
+              },
+            }
+          : undefined,
         legend: {
           show: true,
         },
