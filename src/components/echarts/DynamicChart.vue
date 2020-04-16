@@ -78,7 +78,7 @@ export default {
             }
           : undefined,
         tooltip:
-          this.tooltip == {}
+          this.tooltip == undefined
             ? {
                 show: true,
                 axisPointer: {
