@@ -8,9 +8,15 @@
           :active-name="$router.history.current.name"
           @on-select="handleSelect"
         >
-          <div class="layout-logo">
-            <img class="navbar-logo" src="../assets/img/melodylogo.png" alt />
+          <div>
+            <div class="layout-logo">
+              <img class="navbar-logo" src="../assets/img/melodylogo.png" alt />
+            </div>
+            <div class="layout-title">
+              Melody Data
+            </div>
           </div>
+
           <div class="layout-nav">
             <MenuItem name="runtime">
               <Icon type="ios-paper"></Icon>
@@ -132,6 +138,19 @@ export default {
   position: relative;
   top: 15px;
   left: 20px;
+}
+.layout-title {
+  width: 100px;
+  height: 30px;
+  border-radius: 3px;
+  float: left;
+  position: relative;
+  top: 15px;
+  left: 10px;
+  font-size: 16px;
+  line-height: 2em;
+  font-family: Comic Sans MS, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
 }
 .layout-nav {
   float: right;
