@@ -22,6 +22,11 @@ export default {
   color: #2c3e50;
 }
 
+.description {
+  font-size: 12px;
+  text-align: center;
+}
+
 code {
   padding: 2px 4px;
   font-size: 90%;

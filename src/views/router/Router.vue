@@ -2,7 +2,7 @@
   <div>
     <Card style="margin-top: 10px;">
       <dynamic-chart id="requests_api" ref="api" path="/router/direction"></dynamic-chart>
-      <div style="font-size: 12px"><code>Router Direction</code>:进出的请求数量</div>
+      <div class="description"><code>Router Direction</code>:进出的请求数量</div>
     </Card>
   </div>
 </template>

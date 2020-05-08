@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="text-align: center;">
     <Row type="flex" justify="center" align="middle" class="code-row-bg main_process">
       <i-col span="10">
         <Steps :current="curProcess">

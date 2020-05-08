@@ -66,9 +66,16 @@ export default {
   },
   computed: {
     option() {
+      let type = 'line'
+      if (this.op.series instanceof Array) {
+        if (this.op.series.length > 0) {
+          type = this.op.series[0].type
+        }
+      }
       return {
         title: {
           text: this.op.title,
+          left: type === 'pie' ? 'center' : 'left',
         },
         xAxis: this.needX
           ? {
@@ -99,6 +106,8 @@ export default {
           : undefined,
         legend: {
           show: true,
+          left: type === 'pie' ? 'left' : 'center',
+          orient: type === 'pie' ? 'vertical' : 'horizontal',
         },
         series: this.op.series,
       }

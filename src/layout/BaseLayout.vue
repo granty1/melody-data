@@ -38,10 +38,10 @@
         </Row>
       </Header>
 
-      <Content :style="{ margin: '10px 30px 0', minHeight: '600px' }">
+      <Content :style="{ margin: '10px 50px 0', minHeight: '600px' }">
         <Card dis-hover style="margin-top: 5px;">
           <Row>
-            <i-col span="6" :offset="18">
+            <i-col span="8" :offset="16">
               <Poptip trigger="hover" title="source">
                 <span slot="content">{{ source }}</span>
                 <Badge :status="connect ? 'processing' : 'error'" /><Icon type="md-cube" />
@@ -68,6 +68,7 @@
         </Card>
         <router-view />
       </Content>
+
       <Footer class="layout-footer-center">MIT Licensed | Copyright © 2020 ❤️ Melody-Team</Footer>
     </Layout>
   </div>
