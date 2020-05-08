@@ -1,13 +1,13 @@
 <template>
   <div>
-    <Row style="margin-top: 10px">
+    <Row style="margin-top: 10px" type="flex" justify="space-around">
       <i-col span="11">
         <Card>
           <dynamic-chart id="requests_complete" path="/requests/complete"></dynamic-chart>
           <div style="font-size: 12px"><code>Requets Complete</code>:所有成功的请求</div>
         </Card>
       </i-col>
-      <i-col span="11" :offset="2">
+      <i-col span="11">
         <Card>
           <dynamic-chart id="requests_error" path="/requests/error"></dynamic-chart>
           <div style="font-size: 12px"><code>Requets Error</code>:所有失败的请求</div>
@@ -25,7 +25,7 @@
       ></dynamic-chart>
     </Card>
 
-    <Row style="margin-top: 10px">
+    <Row style="margin-top: 10px" type="flex" justify="space-around">
       <i-col span="11">
         <Card>
           <dynamic-chart id="requests_endpoints" ref="endpoint" path="/requests/endpoints">
@@ -39,7 +39,7 @@
           <div style="font-size: 12px"><code>Requets Endpoints</code>:所有Endpoint的请求</div>
         </Card>
       </i-col>
-      <i-col span="11" :offset="2">
+      <i-col span="11">
         <Card>
           <dynamic-chart id="requests_backends" ref="backend" path="/requests/backends">
             <Cascader
