@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Row style="margin-top: 10px" type="flex" justify="space-around">
+    <Row style="margin-top: 10px" type="flex" justify="space-between">
       <i-col span="11">
         <Card>
           <dynamic-chart id="requests_complete" path="/requests/complete"></dynamic-chart>
@@ -25,7 +25,7 @@
       ></dynamic-chart>
     </Card>
 
-    <Row style="margin-top: 10px" type="flex" justify="space-around">
+    <Row style="margin-top: 10px" type="flex" justify="space-between">
       <i-col span="11">
         <Card>
           <dynamic-chart id="requests_endpoints" ref="endpoint" path="/requests/endpoints">

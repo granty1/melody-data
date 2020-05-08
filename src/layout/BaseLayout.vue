@@ -1,47 +1,47 @@
 <template>
-  <div class="layout">
+  <div>
     <Layout>
-      <Header :style="{ position: 'fixed', width: '100%', background: '#fff' }">
-        <Menu
-          mode="horizontal"
-          theme="light"
-          :active-name="$router.history.current.name"
-          @on-select="handleSelect"
-        >
-          <div>
-            <div class="layout-logo">
-              <img class="navbar-logo" src="../assets/img/melodylogo.png" alt />
-            </div>
-            <div class="layout-title">
+      <Header style="background: #fff">
+        <Row>
+          <i-col span="4">
+            <img class="navbar-logo" src="../assets/img/melodylogo.png" alt />
+            <span class="layout-title">
               Melody Data
-            </div>
-          </div>
-
-          <div class="layout-nav">
-            <MenuItem name="runtime">
-              <Icon type="ios-paper"></Icon>
-              Runtime
-            </MenuItem>
-            <MenuItem name="request">
-              <Icon type="ios-keypad"></Icon>
-              Requests
-            </MenuItem>
-            <MenuItem name="router">
-              <Icon type="ios-analytics"></Icon>
-              Router
-            </MenuItem>
-            <MenuItem name="debug">
-              <Icon type="ios-navigate"></Icon>
-              Debug
-            </MenuItem>
-          </div>
-        </Menu>
-        <span></span>
+            </span>
+          </i-col>
+          <i-col span="20">
+            <Menu
+              mode="horizontal"
+              theme="light"
+              :active-name="$router.history.current.name"
+              @on-select="handleSelect"
+              style="display: inline-block;float: right;"
+            >
+              <MenuItem name="runtime">
+                <Icon type="ios-paper"></Icon>
+                Runtime
+              </MenuItem>
+              <MenuItem name="request">
+                <Icon type="ios-keypad"></Icon>
+                Requests
+              </MenuItem>
+              <MenuItem name="router">
+                <Icon type="ios-analytics"></Icon>
+                Router
+              </MenuItem>
+              <MenuItem name="debug">
+                <Icon type="ios-navigate"></Icon>
+                Debug
+              </MenuItem>
+            </Menu>
+          </i-col>
+        </Row>
       </Header>
-      <Content :style="{ margin: '65px  10px 0' }">
-        <Card dis-hover>
+
+      <Content :style="{ margin: '10px 30px 0', minHeight: '600px' }">
+        <Card dis-hover style="margin-top: 5px;">
           <Row>
-            <i-col span="12" :offset="12">
+            <i-col span="6" :offset="18">
               <Poptip trigger="hover" title="source">
                 <span slot="content">{{ source }}</span>
                 <Badge :status="connect ? 'processing' : 'error'" /><Icon type="md-cube" />
@@ -66,14 +66,13 @@
             </i-col>
           </Row>
         </Card>
-      </Content>
-      <Content :style="{ margin: '10px 10px 0', background: '#fff', minHeight: '600px' }">
         <router-view />
       </Content>
       <Footer class="layout-footer-center">MIT Licensed | Copyright © 2020 ❤️ Melody-Team</Footer>
     </Layout>
   </div>
 </template>
+
 <script>
 export default {
   name: 'Base',
@@ -125,47 +124,22 @@ export default {
 </script>
 
 <style scoped>
-.layout {
-  position: relative;
-  border-radius: 4px;
-  overflow: hidden;
-}
-.layout-logo {
-  width: 100px;
-  height: 30px;
-  border-radius: 3px;
-  float: left;
-  position: relative;
-  top: 15px;
-  left: 20px;
-}
 .layout-title {
-  width: 100px;
-  height: 30px;
-  border-radius: 3px;
-  float: left;
-  position: relative;
-  top: 15px;
-  left: 10px;
-  font-size: 16px;
-  line-height: 2em;
+  font-size: 1.2rem;
+  line-height: 2rem;
   font-family: Comic Sans MS, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Cantarell,
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
 }
-.layout-nav {
-  float: right;
-  margin: 0 auto;
-  margin-right: 20px;
-}
+
 .layout-footer-center {
   text-align: center;
 }
 
 .navbar-logo {
-  height: 2.2rem;
-  min-width: 2.2rem;
-  margin-right: 0.8rem;
-  vertical-align: top;
+  height: 2.8rem;
+  min-width: 2.8rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
   cursor: pointer;
 }
 </style>

@@ -6,7 +6,7 @@
         <code>goroutine num</code>:时间单位内系统中存在的平均goroutine数
       </div>
     </Card>
-    <Row style="margin-top: 10px" type="flex" justify="space-around">
+    <Row style="margin-top: 10px" type="flex" justify="space-between">
       <i-col span="11">
         <Card>
           <dynamic-chart id="runtime_num_gc" path="/runtime/num/gc"></dynamic-chart>
