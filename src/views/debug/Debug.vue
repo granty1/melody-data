@@ -2,6 +2,7 @@
   <div>
     <Card style="margin-top: 10px;">
       <dynamic-chart id="debug_num_gc" path="/debug/num/gc"></dynamic-chart>
+      <div class="description"><code>GCNum</code>:GC的总次数</div>
     </Card>
     <Card style="margin-top: 10px;">
       <dynamic-chart
@@ -10,6 +11,7 @@
         :yLabelFormatter="freeFormatter"
         :tooltipFormatter="freeToolTipFormatter"
       ></dynamic-chart>
+      <div class="description"><code>FreeTotal</code>:GC清理的内存总大小</div>
     </Card>
   </div>
 </template>
