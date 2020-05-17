@@ -34,6 +34,11 @@ const routes = [
         name: 'debug',
         component: () => import('@/views/debug/Debug'),
       },
+      {
+        path: '/warnings',
+        name: 'warnings',
+        component: () => import('@/views/warnings/Warnings'),
+      },
     ],
   },
 ]

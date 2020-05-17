@@ -7,11 +7,11 @@
     <Card style="margin-top: 10px;">
       <dynamic-chart
         id="debug_free_total"
-        path="/debug/free-total"
+        path="/debug/alloc"
         :yLabelFormatter="freeFormatter"
         :tooltipFormatter="freeToolTipFormatter"
       ></dynamic-chart>
-      <div class="description"><code>FreeTotal</code>:GC清理的内存总大小</div>
+      <div class="description"><code>Alloc</code>:系统分配的内存大小</div>
     </Card>
   </div>
 </template>
