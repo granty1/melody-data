@@ -1,6 +1,27 @@
 <template>
   <div>
-    <Table stripe :columns="columns" :data="data"></Table>
+    <Table stripe :columns="columns" :data="data" @on-row-click="openDrawer">
+      <template slot-scope="{ row }" slot="handled">
+        <Button type="error" size="small" ghost>{{ row.handled }}</Button>
+      </template>
+      <template slot="footer">
+        <Page
+          :total="total"
+          show-total
+          style="text-align: center"
+          :page-size="pageSize"
+          @on-change="changePage"
+          :current="current"
+        />
+      </template>
+    </Table>
+    <Drawer
+      :title="'Warning Id: ' + curWarning.id"
+      :closable="true"
+      v-model="drawerCanShow"
+      width="35"
+    >
+    </Drawer>
   </div>
 </template>
 
@@ -37,9 +58,34 @@ export default {
         {
           title: '是否处理',
           key: 'handled',
+          slot: 'handled',
+          filters: [
+            {
+              label: '已处理',
+              value: 1,
+            },
+            {
+              label: '未处理',
+              value: 0,
+            },
+          ],
+          filterMultiple: false,
+          filterMethod(value, row) {
+            if (value === 1) {
+              return row.handled === '已处理'
+            } else if (value === 0) {
+              return row.handled === '未处理'
+            }
+          },
         },
       ],
       data: [],
+      drawerCanShow: false,
+      curWarning: {},
+      pageSize: 10,
+      total: 0,
+      current: 1,
+      ws: {},
     }
   },
   mounted() {
@@ -61,7 +107,15 @@ export default {
           item.ctime = new Date(item.ctime).toLocaleString()
           item.handled = item.handled === 0 ? '未处理' : '已处理'
         })
+        this.total = json.total
       }
+    },
+    openDrawer(data) {
+      this.drawerCanShow = true
+      this.curWarning = data
+    },
+    changePage(pageIndex) {
+      this.ws.send(pageIndex)
     },
   },
   beforeDestroy() {

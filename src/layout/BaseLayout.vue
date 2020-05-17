@@ -33,6 +33,10 @@
                 <Icon type="ios-navigate"></Icon>
                 Debug
               </MenuItem>
+              <MenuItem name="warnings">
+                <Icon type="ios-navigate"></Icon>
+                Warnings
+              </MenuItem>
             </Menu>
           </i-col>
         </Row>
