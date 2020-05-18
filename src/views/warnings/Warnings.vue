@@ -3,6 +3,7 @@
     <Table stripe :columns="columns" :data="data" @on-row-click="openDrawer">
       <template slot-scope="{ row }" slot="handled">
         <Button type="error" size="small" ghost>{{ row.handled }}</Button>
+        <Checkbox v-model="row.isHandled"></Checkbox>
       </template>
       <template slot="footer">
         <Page
@@ -15,13 +16,6 @@
         />
       </template>
     </Table>
-    <Drawer
-      :title="'Warning Id: ' + curWarning.id"
-      :closable="true"
-      v-model="drawerCanShow"
-      width="35"
-    >
-    </Drawer>
   </div>
 </template>
 
@@ -38,6 +32,46 @@ export default {
         {
           title: '任务名',
           key: 'task_name',
+          filters: [
+            {
+              label: 'numgc',
+              value: 'numgc',
+            },
+            {
+              label: 'sys',
+              value: 'sys',
+            },
+            {
+              label: 'heapsys',
+              value: 'heapsys',
+            },
+            {
+              label: 'stacksys',
+              value: 'stacksys',
+            },
+            {
+              label: 'mcachesys',
+              value: 'mcachesys',
+            },
+            {
+              label: 'mspansys',
+              value: 'mspansys',
+            },
+            {
+              label: 'size',
+              value: 'size',
+            },
+            {
+              label: 'time',
+              value: 'time',
+            },
+          ],
+          filterMultiple: true,
+          filterMethod(value, row) {
+            if (value === row.task_name) {
+              return row.task_name
+            }
+          },
         },
         {
           title: '警告时的数据',
@@ -80,8 +114,6 @@ export default {
         },
       ],
       data: [],
-      drawerCanShow: false,
-      curWarning: {},
       pageSize: 10,
       total: 0,
       current: 1,
@@ -109,10 +141,6 @@ export default {
         })
         this.total = json.total
       }
-    },
-    openDrawer(data) {
-      this.drawerCanShow = true
-      this.curWarning = data
     },
     changePage(pageIndex) {
       this.ws.send(pageIndex)
