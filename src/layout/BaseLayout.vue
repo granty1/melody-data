@@ -79,6 +79,8 @@
 </template>
 
 <script>
+import { NewWebSocket } from '@/util/websocket'
+import { Notice } from 'view-design'
 export default {
   name: 'Base',
   data() {
@@ -94,6 +96,7 @@ export default {
       refreshList: ['5s', '10s', '15s', '30s', '60s'],
       pastList: ['5m', '15m', '1h', '6h', '12h', '24h', '7d', '15d', '30d'],
       intervalList: ['500ms', '2s', '5s', '10s', '15s', '1m', '2m', '4m', '30m', '1h', '6h'],
+      ws: {},
     }
   },
   mounted() {
@@ -101,6 +104,7 @@ export default {
     if (cache != null) {
       this.timeControl = cache
     }
+    this.initWS()
   },
   computed: {
     connect() {
@@ -113,6 +117,20 @@ export default {
   methods: {
     handleSelect(name) {
       this.$router.push(name)
+    },
+    initWS() {
+      this.ws = NewWebSocket('/warnings/watch')
+      this.ws.onmessage = evt => {
+        let json = JSON.parse(evt.data)
+        Notice.warning({
+          title: '服务器出现异常',
+          duration: 10,
+          desc:
+            json.warning.description +
+            '<br>发生时间：' +
+            new Date(json.warning.ctime).toLocaleString(),
+        })
+      }
     },
   },
   watch: {
