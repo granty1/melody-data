@@ -32,3 +32,11 @@ export function getE2B(data) {
     data,
   })
 }
+
+export function changeWarningStatus(data) {
+  return axios({
+    url: store.getters.address + '/changeStatus',
+    method: 'post',
+    data,
+  })
+}

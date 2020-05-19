@@ -1,9 +1,13 @@
 <template>
   <div>
-    <Table stripe :columns="columns" :data="data" @on-row-click="openDrawer">
+    <Table stripe :columns="columns" :data="data" @on-filter-change="filterChange">
       <template slot-scope="{ row }" slot="handled">
-        <Button type="error" size="small" ghost>{{ row.handled }}</Button>
-        <Checkbox v-model="row.isHandled"></Checkbox>
+        <Button :type="row.handled === 0 ? 'error' : 'info'" size="small" ghost>
+          {{ row.handled === 0 ? '未处理' : '已处理' }}
+        </Button>
+      </template>
+      <template slot-scope="{ row }" slot="isHandled">
+        <Checkbox v-model="row.isHandled" @on-change="handle(row)"></Checkbox>
       </template>
       <template slot="footer">
         <Page
@@ -12,7 +16,7 @@
           style="text-align: center"
           :page-size="pageSize"
           @on-change="changePage"
-          :current="current"
+          :current="1"
         />
       </template>
     </Table>
@@ -21,6 +25,7 @@
 
 <script>
 import { NewWebSocket } from '@/util/websocket'
+import { changeWarningStatus } from '@/api'
 export default {
   data() {
     return {
@@ -112,11 +117,15 @@ export default {
             }
           },
         },
+        {
+          title: '',
+          slot: 'isHandled',
+          key: 'isHandled',
+        },
       ],
       data: [],
       pageSize: 10,
       total: 0,
-      current: 1,
       ws: {},
     }
   },
@@ -137,13 +146,21 @@ export default {
         this.data = json.warnings
         this.data.forEach(item => {
           item.ctime = new Date(item.ctime).toLocaleString()
-          item.handled = item.handled === 0 ? '未处理' : '已处理'
+          item.isHandled = item.handled === 0 ? false : true
         })
         this.total = json.total
       }
     },
     changePage(pageIndex) {
       this.ws.send(pageIndex)
+    },
+    filterChange() {},
+    handle(data) {
+      data.handled = data.handled === 0 ? 1 : 0
+      data.isHandled = data.handled === 0 ? false : true
+      changeWarningStatus({
+        id: data.id,
+      })
     },
   },
   beforeDestroy() {
