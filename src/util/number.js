@@ -24,3 +24,14 @@ export function ConvertNumberToLabel(number) {
 export function ConvertTime(time) {
   return time / 1000000 + 'ms'
 }
+
+export function ConvertNanoTime(time) {
+  let second = time / (1000 * 1000 * 1000)
+  let minute = second / 60
+  second -= Math.floor(minute) * second
+  if (minute < 1) {
+    return second + '秒'
+  } else {
+    return minute + '分钟' + minute + '秒'
+  }
+}

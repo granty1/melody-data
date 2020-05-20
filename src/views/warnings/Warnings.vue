@@ -26,6 +26,7 @@
 <script>
 import { NewWebSocket } from '@/util/websocket'
 import { changeWarningStatus } from '@/api'
+import { ConvertNumberToLabel, ConvertNanoTime } from '@/util/number'
 export default {
   data() {
     return {
@@ -147,6 +148,14 @@ export default {
         this.data.forEach(item => {
           item.ctime = new Date(item.ctime).toLocaleString()
           item.isHandled = item.handled === 0 ? false : true
+
+          if (item.task_name === 'time') {
+            item.cur_value = ConvertNanoTime(item.cur_value)
+            item.threshold = ConvertNanoTime(item.threshold)
+          } else {
+            item.cur_value = ConvertNumberToLabel(item.cur_value)
+            item.threshold = ConvertNumberToLabel(item.threshold)
+          }
         })
         this.total = json.total
       }
