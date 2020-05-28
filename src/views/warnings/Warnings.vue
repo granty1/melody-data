@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table stripe :columns="columns" :data="data" @on-filter-change="filterChange">
+    <Table stripe :columns="columns" :data="data">
       <template slot-scope="{ row }" slot="handled">
         <Button :type="row.handled === 0 ? 'error' : 'info'" size="small" ghost>
           {{ row.handled === 0 ? '未处理' : '已处理' }}
@@ -111,11 +111,7 @@ export default {
           ],
           filterMultiple: false,
           filterMethod(value, row) {
-            if (value === 1) {
-              return row.handled === '已处理'
-            } else if (value === 0) {
-              return row.handled === '未处理'
-            }
+            return row.handled === value
           },
         },
         {
@@ -163,7 +159,6 @@ export default {
     changePage(pageIndex) {
       this.ws.send(pageIndex)
     },
-    filterChange() {},
     handle(data) {
       data.handled = data.handled === 0 ? 1 : 0
       data.isHandled = data.handled === 0 ? false : true
